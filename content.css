@@ -1,0 +1,754 @@
+/* ============================================================
+   DALY工具箱 - 统一样式表（重构版）
+   包含: 悬浮窗 / 评论面板 / 媒体面板 / 商家后台工具栏 / 提示
+   ============================================================ */
+
+/* ---------- 基础 ---------- */
+.daly-toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  padding: 10px 24px;
+  border-radius: 6px;
+  font-size: 14px;
+  z-index: 2147483647;
+  animation: daly-fade 1.5s ease forwards;
+  pointer-events: none;
+}
+
+@keyframes daly-fade {
+  0%   { opacity: 0; transform: translate(-50%, 10px); }
+  15%  { opacity: 1; transform: translate(-50%, 0); }
+  85%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, -10px); }
+}
+
+/* ---------- 通用按钮 ---------- */
+.daly-btn {
+  padding: 6px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+.daly-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.daly-btn-primary { background: #4f46e5; color: #fff; }
+.daly-btn-primary:hover:not(:disabled) { background: #4338ca; }
+.daly-btn-secondary { background: #475569; color: #fff; }
+.daly-btn-secondary:hover:not(:disabled) { background: #334155; }
+.daly-btn-close { background: rgba(255,255,255,0.15); color: #fff; padding: 4px 10px; font-size: 16px; }
+.daly-btn-close:hover { background: rgba(255,255,255,0.25); }
+.daly-btn-small { padding: 4px 10px; font-size: 12px; }
+
+/* ---------- 右侧悬浮窗（自媒体：抖音/小红书/快手） ---------- */
+.daly-suspension {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 240px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0, 0, 0, 0.08);
+  z-index: 999999;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/* ---------- 左侧悬浮窗（电商：拼多多/淘宝/京东/1688/抖音商品） ---------- */
+.daly-suspension[data-platform="pdd"],
+.daly-suspension[data-platform="tb"],
+.daly-suspension[data-platform="jd"],
+.daly-suspension[data-platform="1688"],
+.daly-suspension[data-platform="dy_shop"] {
+  right: auto;
+  left: 20px;
+}
+
+.daly-suspension:hover {
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.2), 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-50%) scale(1.02);
+}
+
+.daly-suspension-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 14px 16px;
+  color: #fff;
+  cursor: move;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.daly-suspension-header h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.daly-suspension-body { padding: 16px; }
+
+.daly-section { margin-bottom: 12px; }
+.daly-section:last-child { margin-bottom: 0; }
+
+.daly-section-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: #667eea;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.daly-product-info {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.daly-stat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 11px;
+  margin-bottom: 6px;
+}
+.daly-stat-item:last-child { margin-bottom: 0; }
+
+.daly-stat-label {
+  color: #64748b;
+  flex-shrink: 0;
+}
+
+.daly-stat-value {
+  color: #1f2937;
+  font-weight: 500;
+  text-align: right;
+  line-height: 1.4;
+  flex: 1;
+  word-break: break-word;
+}
+
+.daly-tools {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.daly-tool-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-align: center;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 100%;
+  box-sizing: border-box;
+}
+.daly-tool-btn:hover { 
+  transform: translateY(-2px); 
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  background: linear-gradient(135deg, #5568dd 0%, #653a95 100%);
+}
+.daly-tool-btn:active { 
+  transform: translateY(0); 
+  box-shadow: 0 2px 6px rgba(102, 126, 234, 0.3);
+}
+.daly-tool-btn .icon { 
+  font-size: 16px; 
+  flex-shrink: 0;
+}
+
+.daly-loading {
+  text-align: center;
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+/* ---------- 平台主题色（悬浮窗）---------- */
+.daly-suspension[data-platform="pdd"] .daly-suspension-header { background: linear-gradient(135deg,#667eea 0%,#764ba2 100%); }
+.daly-suspension[data-platform="pdd"] .daly-section-title { color: #667eea; }
+
+.daly-suspension[data-platform="tb"] .daly-suspension-header { background: linear-gradient(135deg,#ff6a00 0%,#ff9500 100%); }
+.daly-suspension[data-platform="tb"] .daly-section-title { color: #ff6a00; }
+
+.daly-suspension[data-platform="jd"] .daly-suspension-header { background: linear-gradient(135deg,#e4393c 0%,#f56c6c 100%); }
+.daly-suspension[data-platform="jd"] .daly-section-title { color: #e4393c; }
+
+.daly-suspension[data-platform="1688"] .daly-suspension-header { background: linear-gradient(135deg,#1677ff 0%,#4096ff 100%); }
+.daly-suspension[data-platform="1688"] .daly-section-title { color: #1677ff; }
+
+.daly-suspension[data-platform="dy_shop"] .daly-suspension-header { background: linear-gradient(135deg,#161823 0%,#2b2d42 100%); }
+.daly-suspension[data-platform="dy_shop"] .daly-section-title { color: #25f4ee; }
+
+.daly-suspension[data-platform="dy_video"] .daly-suspension-header { background: linear-gradient(135deg,#161823 0%,#25f4ee 100%); }
+.daly-suspension[data-platform="dy_video"] .daly-section-title { color: #25f4ee; }
+
+.daly-suspension[data-platform="xhs"] .daly-suspension-header { background: linear-gradient(135deg,#ff2442 0%,#ff6b81 100%); }
+.daly-suspension[data-platform="xhs"] .daly-section-title { color: #ff2442; }
+
+.daly-suspension[data-platform="ks"] .daly-suspension-header { background: linear-gradient(135deg,#ff6633 0%,#ff9500 100%); }
+.daly-suspension[data-platform="ks"] .daly-section-title { color: #ff6633; }
+
+/* ============================================================
+   评论面板
+   ============================================================ */
+.daly-review-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.72);
+  z-index: 2147483000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+.daly-review-panel {
+  background: #fff;
+  border-radius: 12px;
+  width: 95%;
+  max-width: 1200px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.daly-review-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  padding: 14px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+.daly-review-header h3 { margin: 0; font-size: 16px; }
+.daly-review-header small { opacity: 0.8; }
+
+.daly-review-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.daly-review-table-header {
+  display: grid;
+  grid-template-columns: 50px 100px 1fr 150px 120px 140px 80px;
+  padding: 10px 20px;
+  background: #f1f5f9;
+  font-weight: 600;
+  font-size: 12px;
+  color: #475569;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.daly-review-list {
+  padding: 0;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.daly-review-row {
+  display: grid;
+  grid-template-columns: 50px 100px 1fr 150px 120px 140px 80px;
+  padding: 12px 20px;
+  font-size: 13px;
+  border-bottom: 1px solid #f1f5f9;
+  align-items: center;
+  transition: background 0.15s ease;
+}
+.daly-review-row:hover { background: #f8fafc; }
+
+.daly-review-images {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.daly-review-images img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid #e2e8f0;
+}
+.daly-review-images span {
+  font-size: 11px;
+  color: #94a3b8;
+  padding: 2px 6px;
+}
+
+/* 评论详情浮层 */
+.daly-detail-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.72);
+  z-index: 2147483500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.daly-detail-panel {
+  background: #fff;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  padding: 24px;
+  overflow-y: auto;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+.daly-detail-panel h3 { margin-top: 0; color: #334155; }
+.daly-detail-panel p { font-size: 14px; margin: 10px 0; color: #475569; }
+
+.daly-detail-content {
+  background: #f8fafc;
+  padding: 14px 16px;
+  border-radius: 8px;
+  line-height: 1.8;
+  color: #1f2937;
+}
+
+.daly-detail-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0;
+}
+.daly-detail-images img {
+  max-width: 150px;
+  max-height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid #e2e8f0;
+}
+
+/* ============================================================
+   媒体面板
+   ============================================================ */
+.daly-media-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 2147482000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+.daly-media-panel {
+  background: #fff;
+  border-radius: 12px;
+  width: 92vw;
+  max-width: 1100px;
+  height: 82vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+.daly-media-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  border-bottom: 1px solid #e2e8f0;
+  flex-shrink: 0;
+}
+.daly-media-header h2 {
+  margin: 0;
+  font-size: 18px;
+  color: #0f172a;
+}
+.daly-media-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.daly-media-body {
+  display: flex;
+  padding: 14px;
+  gap: 14px;
+  flex: 1;
+  overflow: hidden;
+}
+
+.daly-media-sidebar {
+  width: 160px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.daly-tab-btn {
+  padding: 10px;
+  border: 2px solid #e2e8f0;
+  background: #fff;
+  color: #475569;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 13px;
+  text-align: center;
+  transition: all 0.15s ease;
+}
+.daly-tab-btn:hover {
+  border-color: #c7d2fe;
+  color: #4f46e5;
+}
+.daly-tab-btn.active {
+  background: #eef2ff;
+  border-color: #4f46e5;
+  color: #4f46e5;
+}
+
+.daly-media-stats {
+  margin-top: auto;
+  padding: 12px;
+  background: #f8fafc;
+  border-radius: 8px;
+  font-size: 12px;
+  color: #475569;
+  line-height: 1.8;
+}
+
+.daly-media-grid {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-content: flex-start;
+  padding: 8px;
+  background: #f8fafc;
+  border-radius: 8px;
+}
+
+.daly-media-placeholder {
+  width: 100%;
+  text-align: center;
+  padding: 40px 20px;
+  color: #94a3b8;
+  font-size: 15px;
+}
+
+.daly-media-card {
+  position: relative;
+  width: 150px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.daly-media-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.daly-media-thumb {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  display: block;
+}
+
+.daly-media-info {
+  padding: 6px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: #475569;
+}
+.daly-media-info span {
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ============================================================
+   商家后台工具栏（与千牛/抖店同位：top:57px，居中，圆角）
+   ============================================================ */
+.daly-mms-toolbar,
+.daly-qianniu-toolbar {
+  position: fixed !important;
+  top: 57px !important;
+  left: 50% !important;
+  right: auto !important;
+  transform: translateX(-50%) !important;
+  z-index: 2147483647 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  justify-content: center !important;
+  gap: 0 !important;
+  padding: 6px 16px !important;
+  margin: 0 !important;
+  border-radius: 10px !important;
+  border: none !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  height: auto !important;
+  width: auto !important;
+  max-width: unset !important;
+  min-width: unset !important;
+  width: fit-content !important;
+  box-sizing: border-box !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  overflow: visible !important;
+}
+.daly-mms-logo,
+.daly-qianniu-logo {
+  position: static !important;
+  display: inline-flex !important;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  white-space: nowrap;
+  margin-right: 16px !important;
+  align-self: center !important;
+}
+.daly-mms-toolbar {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  box-shadow: 0 4px 24px rgba(102,126,234,0.5), 0 2px 6px rgba(0,0,0,0.1) !important;
+}
+.daly-qianniu-toolbar {
+  background: linear-gradient(135deg, #1677ff 0%, #4096ff 50%, #69b1ff 100%) !important;
+  box-shadow: 0 4px 24px rgba(22,119,255,0.4), 0 2px 6px rgba(0,0,0,0.1) !important;
+}
+.daly-mms-row {
+  display: flex !important;
+  align-items: center !important;
+  flex-wrap: nowrap !important;
+  gap: 14px;
+  padding-left: 0 !important;
+  width: auto !important;
+  box-sizing: border-box !important;
+}
+.daly-mms-stats-row {
+  gap: 20px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+.daly-mms-btns-row {
+  gap: 12px;
+  padding-top: 3px;
+}
+.daly-mms-stat {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: unset;
+  line-height: 1.2;
+  color: #fff;
+}
+.daly-mms-stat-label {
+  font-size: 11px;
+  opacity: 0.85;
+  white-space: nowrap;
+}
+.daly-mms-stat-value {
+  font-size: 16px;
+  font-weight: 700;
+  margin-top: 2px;
+  white-space: nowrap;
+  letter-spacing: 0.3px;
+}
+.daly-mms-logo {
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  margin-right: 4px;
+  white-space: nowrap;
+  grid-row: 1 / 3 !important;
+  align-self: center !important;
+}
+.daly-mms-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 10px;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff !important;
+  border-radius: 12px;
+  text-decoration: none !important;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+  line-height: 1.4;
+  height: 24px;
+  white-space: nowrap;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+.daly-mms-btn:hover { background: rgba(255,255,255,0.3); }
+
+/* ============================================================
+   千牛商家后台工具栏
+   ============================================================ */
+.daly-qianniu-logo {
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  white-space: nowrap;
+  grid-row: 1 / 3 !important;
+  align-self: center !important;
+  margin-right: 4px;
+}
+.daly-qianniu-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 10px;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff !important;
+  border-radius: 12px;
+  text-decoration: none !important;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+  line-height: 1.4;
+  height: 24px;
+  white-space: nowrap;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+.daly-qianniu-btn:hover { background: rgba(255,255,255,0.3); }
+
+/* ============================================================
+   自媒体平台媒体下载面板（简化版）
+   ============================================================ */
+.daly-self-media-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 2147482000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+.daly-self-media-panel {
+  background: #fff;
+  border-radius: 16px;
+  width: 90vw;
+  max-width: 900px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+}
+
+.daly-self-media-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+.daly-self-media-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+.daly-self-media-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.daly-self-media-body {
+  padding: 16px;
+  overflow-y: auto;
+  flex: 1;
+}
+.daly-self-media-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-content: flex-start;
+}
+
+.daly-self-media-card {
+  width: 160px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s ease;
+}
+.daly-self-media-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.daly-self-media-preview {
+  width: 100%;
+  height: 120px;
+  background: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.daly-self-media-video-icon {
+  font-size: 48px;
+  opacity: 0.6;
+}
+.daly-self-media-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.daly-self-media-info {
+  padding: 8px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
+}
+.daly-self-media-name {
+  font-size: 11px;
+  color: #475569;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}

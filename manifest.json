@@ -1,0 +1,159 @@
+{
+  "manifest_version": 3,
+  "name": "DALY工具箱",
+  "version": "2.0.0",
+  "description": "电商工具集合 - 支持拼多多/淘宝/天猫/京东/1688/抖音/小红书/快手等平台的商品/视频/图文采集",
+  "update_url": "https://daly.433345.xyz/extension/update.xml",
+  "action": {
+    "default_popup": "index.html",
+    "default_title": "DALY工具箱",
+    "default_icon": "icons/daly.png"
+  },
+  "icons": {
+    "16": "icons/daly.png",
+    "32": "icons/daly.png",
+    "48": "icons/daly.png",
+    "128": "icons/daly.png"
+  },
+  "permissions": [
+    "scripting",
+    "activeTab",
+    "downloads",
+    "webRequest",
+    "storage"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "host_permissions": [
+    "https://mms.pinduoduo.com/*",
+    "https://mobile.yangkeduo.com/*",
+    "https://item.taobao.com/*",
+    "https://detail.tmall.com/*",
+    "https://*.detail.tmall.com/*",
+    "https://item.jd.com/*",
+    "https://detail.1688.com/*",
+    "https://haohuo.jinritemai.com/*",
+    "https://fxg.jinritemai.com/*",
+    "https://www.douyin.com/*",
+    "https://www.xiaohongshu.com/*",
+    "https://www.kuaishou.com/*",
+    "https://kuaishou.com/*",
+    "https://*.qianniu.com/*",
+    "https://qn.taobao.com/*",
+    "https://myseller.taobao.com/*",
+    "https://my.taobao.com/*",
+    "https://i.taobao.com/*",
+    "https://sell.taobao.com/*",
+    "https://*.xhscdn.com/*",
+    "https://*.douyinvod.com/*",
+    "https://*.bytevcloud.com/*",
+    "https://*.ibytedtos.com/*",
+    "https://*.bytecdn.cn/*",
+    "https://*.qyxx.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://mms.pinduoduo.com/*",
+        "https://mobile.yangkeduo.com/*",
+        "https://item.taobao.com/*",
+        "https://chaoshi.detail.tmall.com/*",
+        "https://detail.tmall.com/*",
+        "https://*.detail.tmall.com/*",
+        "https://detail.tmall.hk/*",
+        "https://item.jd.com/*",
+        "https://detail.1688.com/*",
+        "https://haohuo.jinritemai.com/*",
+        "https://www.douyin.com/*",
+        "https://www.xiaohongshu.com/*",
+        "https://www.kuaishou.com/*",
+        "https://kuaishou.com/*"
+      ],
+      "js": [
+        "content/config.js",
+        "content/logger.js",
+        "platforms/utils.js",
+        "platforms/detect.js",
+        "suspension/pdd.js",
+        "suspension/taobao.js",
+        "suspension/jd.js",
+        "suspension/1688.js",
+        "suspension/douyin-shop.js",
+        "suspension/douyin-video.js",
+        "suspension/xiaohongshu.js",
+        "suspension/kuaishou.js",
+        "media/pdd.js",
+        "media/tmall.js",
+        "media/jd.js",
+        "media/1688.js",
+        "media/douyin.js",
+        "content/ui/media-panel.js",
+        "content/ui/self-media-panel.js",
+        "jszip.min.js",
+        "review-fetcher.js",
+        "content/ui/review-panel.js",
+        "content.js"
+      ],
+      "css": [
+        "content.css"
+      ],
+      "run_at": "document_end",
+      "all_frames": false
+    },
+    {
+      "matches": [
+        "https://mms.pinduoduo.com/*"
+      ],
+      "js": [
+        "content/config.js",
+        "content/logger.js",
+        "toolbar/pdd-mms.js",
+        "content.js"
+      ],
+      "css": [
+        "content.css"
+      ],
+      "run_at": "document_end",
+      "all_frames": false
+    },
+    {
+      "matches": [
+        "https://*.qianniu.com/*",
+        "https://qn.taobao.com/*",
+        "https://myseller.taobao.com/*",
+        "https://my.taobao.com/*",
+        "https://i.taobao.com/*",
+        "https://sell.taobao.com/*"
+      ],
+      "js": [
+        "content/config.js",
+        "content/logger.js",
+        "toolbar/qianniu.js",
+        "content.js"
+      ],
+      "css": [
+        "content.css"
+      ],
+      "run_at": "document_end",
+      "all_frames": false
+    },
+    {
+      "matches": [
+        "https://fxg.jinritemai.com/*"
+      ],
+      "js": [
+        "content/config.js",
+        "content/logger.js",
+        "toolbar/doudian.js",
+        "content.js"
+      ],
+      "css": [
+        "content.css"
+      ],
+      "run_at": "document_end",
+      "all_frames": false
+    }
+  ]
+}
